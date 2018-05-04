@@ -12,5 +12,7 @@ namespace TaxiLib.Interfaces
         string Firm { get; }
         string Model { get; }
         string RegistrationNumber { get; }
+        double Price { get; }
+        string GetCharacteristics();
     }
 }

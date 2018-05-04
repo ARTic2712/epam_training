@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaxiLib.Interfaces
 {
-    interface IOptionable
+    public interface IOptionable
     {
         double Weight { get; }
         double FuelCost { get; set; }

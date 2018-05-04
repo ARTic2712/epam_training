@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaxiLib.Interfaces;
 
 namespace TaxiLib.Classes
 {
@@ -13,18 +14,21 @@ namespace TaxiLib.Classes
 
         public Unity(ICollection<Interfaces.ICar> carCollection, ICollection <Interfaces.ITaxi > taxiCollection)
         {
-            this._carCollection = carCollection;
-            this._taxiCollection = taxiCollection;
+            this.CarCollection = carCollection;
+            this.TaxiCollection = taxiCollection;
         }
+
+        public ICollection<ICar> CarCollection { get; private set; }
+        public ICollection<ITaxi> TaxiCollection { get; private set; }
 
         public void Add(Interfaces.ICar item)
         {
-            _carCollection.Add(item);
+            CarCollection.Add(item);
         }
 
         public void Add(Interfaces.ITaxi  item)
         {
-            _taxiCollection .Add(item);
+            TaxiCollection .Add(item);
         }
     }
 }
