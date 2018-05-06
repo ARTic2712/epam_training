@@ -31,5 +31,9 @@ namespace TaxiLib.Classes
         {
             return "Weight: " + Weight + Environment.NewLine  + "Fuel сost: " + FuelCost + Environment.NewLine + "Max speed: " + MaxSpeed;
         }
+        public override string ToString()
+        {
+            return Firm + " " + Model + " Reg. number-" + "'" + RegistrationNumber + "'" + Environment.NewLine;
+        }
     }
 }

@@ -21,6 +21,26 @@ namespace TaxiLib.Classes
             this.Carcass = carcass;
             this.Volume = volume;
         }
-
+        public override string GetCharacteristics()
+        {
+            return base.GetCharacteristics() + Environment.NewLine + "Carrying: " + Carrying + Environment.NewLine +"Useful volume: " + Volume + Environment.NewLine  + "Carcass:" + GetCarcass();
+        }
+        public string GetCarcass()
+        {
+            {
+                switch (Carcass)
+                {
+                    case Enums.CarcassTruck.Awning  : return "Awning";
+                    case Enums.CarcassTruck.Board : return "Board";
+                    case Enums.CarcassTruck.Fridge : return "Fridge";
+                    case Enums.CarcassTruck.Wagon: return "Wagon";
+                    default: return "Unknown";
+                }
+            };
+        }
+        public override string ToString()
+        {
+            return base.ToString() + GetCharacteristics();
+        }
     }
 }

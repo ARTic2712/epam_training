@@ -31,10 +31,10 @@ namespace TaxiLib.Classes
         }
         protected void FillTaxi()
         {
-            _unity.TaxiCollection.First(x=>x.Name.Contains("TaxiCity")).Items.Add(_unity.CarCollection.ElementAt(0));
-            _unity.TaxiCollection.First(x => x.Name.Contains("TaxiCity")).Items.Add(_unity.CarCollection.ElementAt(1));
             _unity.TaxiCollection.First(x => x.Name.Contains("TaxiCity")).Items.Add(_unity.CarCollection.ElementAt(2));
+            _unity.TaxiCollection.First(x=>x.Name.Contains("TaxiCity")).Items.Add(_unity.CarCollection.ElementAt(0));
             _unity.TaxiCollection.First(x => x.Name.Contains("TaxiCity")).Items.Add(_unity.CarCollection.ElementAt(3));
+            _unity.TaxiCollection.First(x => x.Name.Contains("TaxiCity")).Items.Add(_unity.CarCollection.ElementAt(1));
             
         }
         public Classes.Unity Build()

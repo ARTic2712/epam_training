@@ -39,5 +39,10 @@ namespace TaxiLib.Classes
         {
             return base.GetCharacteristics() + Environment.NewLine + "Count passangers: " + CountPassangers + Environment.NewLine + "Carcass:" + GetCarcass();
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + GetCharacteristics();
+        }
     }
 }

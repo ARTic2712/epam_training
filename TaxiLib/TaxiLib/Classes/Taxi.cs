@@ -12,7 +12,7 @@ namespace TaxiLib.Classes
         public Guid Id { get; }
         public string Name { get; set; }
         public int PhoneNumber { get; set; }
-        public ICollection<ICar> Items { get; }
+        public ICollection<ICar> Items { get;}
 
         public Taxi(Guid id, string name,int phoneNumber, ICollection<ICar> items)
         {
@@ -21,6 +21,29 @@ namespace TaxiLib.Classes
             this.PhoneNumber = phoneNumber;
             this.Items = items;
 
+        }
+        public Taxi()
+        {
+            this.Id = Guid.NewGuid() ;
+            this.Name = "DefaultTaxi";
+            this.PhoneNumber = 0;
+            this.Items = new List<ICar>();
+
+        }
+        public void Add(IEnumerable<ICar> cars)
+        {
+            foreach(ICar car in cars)
+            {
+                Items.Add(car);
+            }
+        }
+        public IEnumerable <ICar> SelectBySpeed(int minSpeed)
+        {
+            return from car in Items where (car as IOptionable).MaxSpeed > minSpeed select car;
+        }
+        public IEnumerable<ICar> SelectBySpeed(int minSpeed, int maxSpeed)
+        {
+            return from car in Items where (car as IOptionable).MaxSpeed > minSpeed && (car as IOptionable).MaxSpeed<maxSpeed  select car;
         }
         public static double GetSumPrice(ICollection<ICar> cars,Predicate<ICar> predicate)
         {
@@ -46,5 +69,19 @@ namespace TaxiLib.Classes
             }
             return summa;
         }
-    }
+        public override string ToString()
+        {
+            string TaxiStr="----------------------------------------------------------------" + Environment.NewLine;
+            TaxiStr += Name + " Tel. number: " + PhoneNumber + Environment.NewLine;
+            TaxiStr += "ТАКСОПАРК:" + Environment.NewLine;
+            foreach (ICar car in Items)
+            {
+                TaxiStr += "****************************************************************" + Environment.NewLine;
+                TaxiStr += car.ToString() +Environment.NewLine ;
+
+            }
+            TaxiStr += "----------------------------------------------------------------";
+            return TaxiStr;
+        }
+            }
 }
