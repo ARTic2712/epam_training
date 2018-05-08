@@ -45,6 +45,15 @@ namespace TaxiLib.Classes
         {
             return from car in Items where (car as IOptionable).MaxSpeed > minSpeed && (car as IOptionable).MaxSpeed<maxSpeed  select car;
         }
+
+        public static ITaxi Find(ICollection<ITaxi > taxiCollection,string name)
+        {
+            return taxiCollection.First(x => x.Name.Contains(name));
+        }
+        public static ITaxi Find(ICollection<ITaxi> taxiCollection, int phoneNumber)
+        {
+            return taxiCollection.First(x => x.PhoneNumber== phoneNumber);
+        }
         public static double GetSumPrice(ICollection<ICar> cars,Predicate<ICar> predicate)
         {
             Double summa = 0;
@@ -73,7 +82,7 @@ namespace TaxiLib.Classes
         {
             string TaxiStr="----------------------------------------------------------------" + Environment.NewLine;
             TaxiStr += Name + " Tel. number: " + PhoneNumber + Environment.NewLine;
-            TaxiStr += "ТАКСОПАРК:" + Environment.NewLine;
+            TaxiStr += "CARS:" + Environment.NewLine;
             foreach (ICar car in Items)
             {
                 TaxiStr += "****************************************************************" + Environment.NewLine;
