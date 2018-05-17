@@ -12,6 +12,19 @@ namespace TextParser.ModelClasses
     {
         public ICollection<ISentenceItem> Items { get; }
 
-        public SentenceType SentType { get; }
+        public SentenceType SentType { get; set; }
+        public Sentence()
+        {
+            Items = new List<ISentenceItem>() ;
+        }
+        public Sentence(ICollection<ISentenceItem > items)
+        {
+            this.Items = items;
+        }
+        public Sentence(ICollection<ISentenceItem> items, SentenceType sentType)
+        {
+            this.Items = items;
+            this.SentType = sentType;
+        }
     }
 }

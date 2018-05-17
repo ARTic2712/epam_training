@@ -11,5 +11,15 @@ namespace TextParser.ModelClasses
         public string Value { get;}
 
         public bool EndOfSentence {get;}
+
+        public PunctuationMark()
+        {
+            EndOfSentence = false;
+        }
+        public PunctuationMark(string value)
+        {
+            this.Value = value;
+            this.EndOfSentence = ControlClasses.SymbolsDictionary.SymbolsEndOfSent.Contains(value);
+        }
     }
 }

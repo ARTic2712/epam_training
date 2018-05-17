@@ -12,5 +12,17 @@ namespace TextParser.ModelClasses
         public string Value { get { return Letters.ToString(); } }
 
         public ICollection<ILetter> Letters { get; }
+        public Word()
+        {
+            Letters = new List<ILetter>();
+        }
+        public Word(ICollection<ILetter > letters)
+        {
+            this.Letters = letters;
+        }
+        public int Length()
+        {
+            return this.Letters.Count();
+        }
     }
 }

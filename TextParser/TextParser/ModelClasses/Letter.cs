@@ -10,5 +10,14 @@ namespace TextParser.ModelClasses
     {
         public bool Vowel { get; }
         public char Value { get; }
+        public Letter()
+        {
+            Vowel = false;
+        }
+        public Letter (char value)
+        {
+            this.Value = value;
+            this.Vowel = ControlClasses.SymbolsDictionary.SymbolsVowel.Contains(value.ToString());
+        }
     }
 }

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="FilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">d:\task2_1.txt</Value>
+      <Value Profile="(Default)">E:\task2_1.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>
