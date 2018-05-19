@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextParser.Interfaces
 {
-    interface ISentence
+    public interface ISentence
     {
         ICollection<ISentenceItem > Items { get; }
-        Enums.SentenceType SentType { get; }
+        Enums.SentenceType SentType { get; set; }
     }
 }

@@ -16,6 +16,12 @@ namespace task2_1
         {
             IFileReader textReader = new TextReader(Properties.Settings.Default.FilePath);
             List<TextLine > textLines =(List<TextLine>) textReader.Read();
+            List<ISentence> sentences = (List<ISentence>) Parser.LinesToSentence(textLines);
+            foreach(ISentence sent in sentences )
+            {
+                if(sent.SentType== TextParser.Enums.SentenceType.Interrogative) Console.WriteLine(sent.ToString());
+                
+            }
         }
     }
 }

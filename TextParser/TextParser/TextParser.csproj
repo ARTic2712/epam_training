@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlClasses\Parser.cs" />
     <Compile Include="ControlClasses\SymbolsDictionary.cs" />
     <Compile Include="ControlClasses\TextReader.cs" />
     <Compile Include="Enums\SentenceType.cs" />

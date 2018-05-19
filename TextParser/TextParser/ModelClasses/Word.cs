@@ -9,7 +9,13 @@ namespace TextParser.ModelClasses
 {
     public class Word : Interfaces.ISentenceItem, Interfaces.IWord
     {
-        public string Value { get { return Letters.ToString(); } }
+        public string Value
+        {
+            get
+            {
+                return new string((from el in Letters select (el as Letter).Value).ToArray());
+            }
+        }
 
         public ICollection<ILetter> Letters { get; }
         public Word()
@@ -20,9 +26,9 @@ namespace TextParser.ModelClasses
         {
             this.Letters = letters;
         }
-        public int Length()
+        public int Length
         {
-            return this.Letters.Count();
+            get { return this.Letters.Count(); }
         }
     }
 }

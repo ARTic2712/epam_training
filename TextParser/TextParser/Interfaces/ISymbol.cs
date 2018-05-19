@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextParser.Interfaces
 {
-    interface ISymbol
+    public interface ISymbol
     {
         char Value { get; }
     }

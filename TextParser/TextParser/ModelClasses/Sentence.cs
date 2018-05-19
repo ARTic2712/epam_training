@@ -26,5 +26,18 @@ namespace TextParser.ModelClasses
             this.Items = items;
             this.SentType = sentType;
         }
+        public override string ToString()
+        {
+            StringBuilder resultStr = new StringBuilder();
+            if(Items.Count>0)
+            {
+                foreach(Interfaces.ISentenceItem item in Items )
+                {
+                    resultStr.Append(item.Value);
+                }
+                return resultStr.ToString();
+            }
+            return string.Empty;
+        }
     }
 }

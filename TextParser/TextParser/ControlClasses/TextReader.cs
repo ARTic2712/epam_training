@@ -19,36 +19,38 @@ namespace TextParser.ControlClasses
         {
             FileStream stream=null;
             StreamReader reader=null;
+            ICollection<ModelClasses.TextLine> result = new List<ModelClasses.TextLine>();
+
             try
             {
                  stream = new FileStream(_fileName, FileMode.Open);
                  reader = new StreamReader(stream, Encoding.Default);
-                ICollection<ModelClasses.TextLine > result = new List<ModelClasses.TextLine>();
-                
-                while (!reader.EndOfStream)
-                {
-                    result.Add( new ModelClasses.TextLine( reader.ReadLine(), new List<Interfaces.ISentenceItem >()));
-                }
-                return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return null;
             }
             finally
             {
-                if (stream !=null)
-                {
-                    stream.Close();
-                    stream.Dispose();
-                }
-                if (reader  != null)
-                {
-                    reader.Close();
-                    reader.Dispose();
-                }
+             
             }
+            while (!reader.EndOfStream)
+            {
+                    result.Add( new ModelClasses.TextLine( reader.ReadLine(), new List<Interfaces.ISentenceItem >()));
+            }
+            if (stream != null)
+            {
+                stream.Close();
+                stream.Dispose();
+            }
+            if (reader != null)
+            {
+                reader.Close();
+                reader.Dispose();
+            }
+            return result;
+           
             
         }
     }
