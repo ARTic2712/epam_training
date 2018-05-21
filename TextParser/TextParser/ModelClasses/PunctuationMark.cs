@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace TextParser.ModelClasses
 {
@@ -26,8 +22,8 @@ namespace TextParser.ModelClasses
         }
         public PunctuationMark(string value)
         {
-            this.Value = value;
-            this.EndOfSentence = ControlClasses.SymbolsDictionary.SymbolsEndOfSent.Contains(value);
+            Value = value;
+            EndOfSentence = ControlClasses.SymbolsDictionary.SymbolsEndOfSent.Contains(value);
         }
     }
 }

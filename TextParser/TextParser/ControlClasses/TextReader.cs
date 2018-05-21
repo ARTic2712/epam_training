@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace TextParser.ControlClasses
@@ -13,7 +11,7 @@ namespace TextParser.ControlClasses
 
         public TextReader(string fileName)
         {
-            this._fileName = fileName;
+            _fileName = fileName;
         }
         public ICollection<ModelClasses.TextLine > Read()
         {

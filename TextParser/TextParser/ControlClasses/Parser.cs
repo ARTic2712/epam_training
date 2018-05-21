@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TextParser.ControlClasses
 {
@@ -10,6 +7,10 @@ namespace TextParser.ControlClasses
     {
         public static ICollection<Interfaces.ISentence> LinesToSentence(ICollection<ModelClasses.TextLine> lines)
         {
+            if (lines ==null)
+            {
+                throw new Exception("lines are Empty");
+            }
             ICollection<Interfaces.ISentence> resultSentences = new List<Interfaces.ISentence>();
             Interfaces.ISentence sentence = new ModelClasses.Sentence();
             foreach (ModelClasses.TextLine line in lines)

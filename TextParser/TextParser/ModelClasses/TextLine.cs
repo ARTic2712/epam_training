@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace TextParser.ModelClasses
 {
@@ -14,13 +12,13 @@ namespace TextParser.ModelClasses
         
         public TextLine()
         {
-            this.Value = String.Empty;
-            this.Items = new List<Interfaces.ISentenceItem>();
+            Value = String.Empty;
+            Items = new List<Interfaces.ISentenceItem>();
         }
         public TextLine(string value, ICollection<Interfaces.ISentenceItem> items)
         {
-            this.Value = value;
-            this.Items = items;
+            Value = value;
+            Items = items;
             Parse();
         }
         private void Parse()
@@ -93,7 +91,33 @@ namespace TextParser.ModelClasses
             }
            // return result;
         }
-        public void AddWord(Interfaces.IWord word)
+        public static  List<Interfaces.IWord > Parse(List<TextLine> textLines)
+        {
+            List<Interfaces.IWord> wordsInText = new List<Interfaces.IWord>();
+            for (int i = 0; i < textLines.Count; i++)
+            {
+                foreach (var item in textLines.ElementAt(i).Items)
+                {
+                    if (item is Interfaces.IWord)
+                    {
+                        if (!wordsInText.Contains((item as Interfaces.IWord), new CompareWord()))
+                        {
+                            (item as Word).numbersOfLines.Add(i + 1);
+                            (item as Word).CountInText++;
+                            wordsInText.Add(item as Word);
+                        }
+                        else
+                        {
+                            Interfaces.IWord word = wordsInText.Find(x => (x as Word).Value == (item as Word).Value);
+                            if (!(word as Word).numbersOfLines.Contains(i)) (word as Word).numbersOfLines.Add(i);
+                            (word as Word).CountInText++;
+                        }
+                    }
+                }
+            }
+            return wordsInText;
+        }
+            public void AddWord(Interfaces.IWord word)
         {
             if (word.Length > 0) Items.Add((word as Word));
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace TextParser.ModelClasses
 {
@@ -16,8 +12,8 @@ namespace TextParser.ModelClasses
         }
         public Letter (char value)
         {
-            this.Value = value;
-            this.Vowel = ControlClasses.SymbolsDictionary.SymbolsVowel.Contains(value.ToString());
+            Value = value;
+            Vowel = ControlClasses.SymbolsDictionary.SymbolsVowel.Contains(value.ToString());
         }
     }
 }

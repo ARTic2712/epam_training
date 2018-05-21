@@ -1,13 +1,11 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TextParser.Interfaces;
 
 namespace TextParser.ModelClasses
 {
-    public class Word : Interfaces.ISentenceItem, Interfaces.IWord
+    public class Word : ISentenceItem, IWord
     {
         public string Value
         {
@@ -21,14 +19,38 @@ namespace TextParser.ModelClasses
         public Word()
         {
             Letters = new List<ILetter>();
+            numbersOfLines = new List<int>();
         }
-        public Word(ICollection<ILetter > letters)
+        public Word(ICollection<ILetter> letters)
         {
-            this.Letters = letters;
+            Letters = letters;
+            numbersOfLines = new List<int>();
         }
         public int Length
         {
-            get { return this.Letters.Count(); }
+            get { return Letters.Count(); }
+        }
+        public ICollection<int> numbersOfLines { get;  }
+        public int CountInText {get; set; }
+    }
+
+    public class CompareWord  : IEqualityComparer<IWord >
+    {
+        public bool Equals(IWord x, IWord y)
+        {
+            if ( (x as Word).Value == (y as Word).Value)
+            {
+                return true ;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        int IEqualityComparer<IWord>.GetHashCode(IWord obj)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
