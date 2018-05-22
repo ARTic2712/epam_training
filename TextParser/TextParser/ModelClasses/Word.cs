@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TextParser.Interfaces;
@@ -34,11 +34,11 @@ namespace TextParser.ModelClasses
         public int CountInText {get; set; }
     }
 
-    public class CompareWord  : IEqualityComparer<IWord >
+    public class EqualsWord  : IEqualityComparer<IWord >
     {
         public bool Equals(IWord x, IWord y)
         {
-            if ( (x as Word).Value == (y as Word).Value)
+            if ( (x as Word).Value.ToUpper()   == (y as Word).Value.ToUpper())
             {
                 return true ;
             }
@@ -51,6 +51,13 @@ namespace TextParser.ModelClasses
         int IEqualityComparer<IWord>.GetHashCode(IWord obj)
         {
             throw new System.NotImplementedException();
+        }
+    }
+    public class CompareWord : Comparer<IWord>
+    {
+        public override int Compare(IWord x, IWord y)
+        {
+            return String.Compare((x as Word).Value, (y as Word).Value);
         }
     }
 }

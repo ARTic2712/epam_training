@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using TextParser.Interfaces;
+using TextParser.ModelClasses;
 
 namespace TextParser.ControlClasses
 {
@@ -38,6 +41,31 @@ namespace TextParser.ControlClasses
                 }
             }
             return resultSentences;
+        }
+        public static string GetCorcodance(List<IWord> wordsInText)
+        {
+            StringBuilder resultStr = new StringBuilder();
+            wordsInText.Sort(new ModelClasses.CompareWord());
+            Char currentLetter= new char();
+            foreach(IWord word in wordsInText )
+            {
+                if (currentLetter.Equals('\0'))
+                {
+                    currentLetter = Char.ToUpper((((word as Word).Letters as List<ILetter>)[0] as Letter).Value);
+                    resultStr.Append(currentLetter.ToString().ToUpper());
+                    resultStr.Append(Environment.NewLine);
+                }
+                if(!currentLetter.Equals(Char.ToUpper( (((word as Word).Letters as List<ILetter>)[0] as Letter).Value)))
+                {
+                    currentLetter = Char.ToUpper( (((word as Word).Letters as List<ILetter>)[0] as Letter).Value);
+                    resultStr.Append(currentLetter.ToString().ToUpper());
+                    resultStr.Append(Environment.NewLine);
+                }
+                ((word as Word).numbersOfLines as List<int>).Sort();
+                resultStr.AppendFormat("{0}...............................{1}: {2}{3}", (word as Word).Value, (word as Word).CountInText, string.Join(" ", (((word as Word).numbersOfLines as List<int>)).ToArray()),Environment.NewLine );
+
+            }
+            return resultStr.ToString();
         }
     }
 }

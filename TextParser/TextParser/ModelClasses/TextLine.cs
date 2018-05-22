@@ -100,7 +100,7 @@ namespace TextParser.ModelClasses
                 {
                     if (item is Interfaces.IWord)
                     {
-                        if (!wordsInText.Contains((item as Interfaces.IWord), new CompareWord()))
+                        if (!wordsInText.Contains((item as Interfaces.IWord), new EqualsWord()))
                         {
                             (item as Word).numbersOfLines.Add(i + 1);
                             (item as Word).CountInText++;
@@ -108,8 +108,8 @@ namespace TextParser.ModelClasses
                         }
                         else
                         {
-                            Interfaces.IWord word = wordsInText.Find(x => (x as Word).Value == (item as Word).Value);
-                            if (!(word as Word).numbersOfLines.Contains(i)) (word as Word).numbersOfLines.Add(i);
+                            Interfaces.IWord word = wordsInText.Find(x => (x as Word).Value.ToUpper() == (item as Word).Value.ToUpper());
+                            if (!(word as Word).numbersOfLines.Contains(i+1)) (word as Word).numbersOfLines.Add(i+1);
                             (word as Word).CountInText++;
                         }
                     }

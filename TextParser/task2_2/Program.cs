@@ -20,7 +20,7 @@ namespace task2_2
                 return;
             }
             List<IWord> wordsInText = TextLine.Parse(textLines);
-            
+           Console.WriteLine( Parser.GetCorcodance(wordsInText));
         }
     }
 }
