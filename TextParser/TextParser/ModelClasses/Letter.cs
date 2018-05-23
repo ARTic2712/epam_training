@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace TextParser.ModelClasses
 {
+    [Serializable ]
     class Letter : Interfaces.ILetter, Interfaces.ISymbol 
     {
         public bool Vowel { get; }

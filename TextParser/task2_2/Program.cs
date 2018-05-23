@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TextParser.Interfaces;
 using TextParser.ControlClasses;
 using TextParser.ModelClasses;
+using System.Xml.Serialization;
 
 namespace task2_2
 {
@@ -19,8 +20,28 @@ namespace task2_2
             {
                 return;
             }
-            List<IWord> wordsInText = TextLine.Parse(textLines);
-           Console.WriteLine( Parser.GetCorcodance(wordsInText));
+            
+            List<Word> wordsInText =(TextLine.Parse(textLines));
+            Console.WriteLine( Parser.GetCorcodance(wordsInText));
+            try
+            {
+                Serializator.SerializeConcordance(wordsInText);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            wordsInText.Clear();
+            try
+            {
+                wordsInText = Serializator.DeserializeConcordance();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
         }
     }
 }

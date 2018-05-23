@@ -25,7 +25,7 @@ namespace task2_1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("E:\\task2_1.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("E:\\task2_11.txt")]
         public string FilePath {
             get {
                 return ((string)(this["FilePath"]));

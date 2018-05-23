@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlClasses\Parser.cs" />
+    <Compile Include="ControlClasses\Serializator.cs" />
     <Compile Include="ControlClasses\SymbolsDictionary.cs" />
     <Compile Include="ControlClasses\TextReader.cs" />
     <Compile Include="Enums\SentenceType.cs" />
@@ -62,9 +63,18 @@
     <Compile Include="ModelClasses\TextLine.cs" />
     <Compile Include="ModelClasses\Word.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

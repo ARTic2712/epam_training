@@ -42,7 +42,7 @@ namespace TextParser.ControlClasses
             }
             return resultSentences;
         }
-        public static string GetCorcodance(List<IWord> wordsInText)
+        public static string GetCorcodance(List<Word> wordsInText)
         {
             StringBuilder resultStr = new StringBuilder();
             wordsInText.Sort(new ModelClasses.CompareWord());

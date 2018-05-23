@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using TextParser.Interfaces;
+using System.Xml.Serialization;
 
 namespace TextParser.ModelClasses
 {
+    [Serializable ]
     public class Word : ISentenceItem, IWord
     {
         public string Value
@@ -13,8 +15,9 @@ namespace TextParser.ModelClasses
             {
                 return new string((from el in Letters select (el as Letter).Value).ToArray());
             }
+            set { }
         }
-
+        
         public ICollection<ILetter> Letters { get; }
         public Word()
         {
@@ -26,11 +29,14 @@ namespace TextParser.ModelClasses
             Letters = letters;
             numbersOfLines = new List<int>();
         }
+        
         public int Length
         {
             get { return Letters.Count(); }
         }
-        public ICollection<int> numbersOfLines { get;  }
+        
+        public List<int> numbersOfLines { get; set; }
+        
         public int CountInText {get; set; }
     }
 

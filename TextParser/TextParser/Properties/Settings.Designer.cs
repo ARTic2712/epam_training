@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace task2_2.Properties {
+namespace TextParser.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,13 +25,13 @@ namespace task2_2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("E:\\task2_11.txt")]
-        public string FilePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("E:\\concordance.xml")]
+        public string pathConcordanceSerialize {
             get {
-                return ((string)(this["FilePath"]));
+                return ((string)(this["pathConcordanceSerialize"]));
             }
             set {
-                this["FilePath"] = value;
+                this["pathConcordanceSerialize"] = value;
             }
         }
     }
