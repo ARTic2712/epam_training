@@ -13,16 +13,21 @@ namespace TextParser.ControlClasses
         {
             _fileName = fileName;
         }
-        public ICollection<ModelClasses.TextLine > Read()
+        public ICollection<ModelClasses.TextLine> Read()
         {
-            FileStream stream=null;
-            StreamReader reader=null;
+            FileStream stream = null;
+            // StreamReader reader=null;
             ICollection<ModelClasses.TextLine> result = new List<ModelClasses.TextLine>();
-
             try
             {
-                 stream = new FileStream(_fileName, FileMode.Open);
-                 reader = new StreamReader(stream, Encoding.Default);
+                stream = new FileStream(_fileName, FileMode.Open);
+                using (StreamReader reader = new StreamReader(stream, Encoding.Default))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        result.Add(new ModelClasses.TextLine(reader.ReadLine(), new List<Interfaces.ISentenceItem>()));
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -31,25 +36,12 @@ namespace TextParser.ControlClasses
             }
             finally
             {
-             
-            }
-            while (!reader.EndOfStream)
-            {
-                    result.Add( new ModelClasses.TextLine( reader.ReadLine(), new List<Interfaces.ISentenceItem >()));
-            }
-            if (stream != null)
-            {
-                stream.Close();
-                stream.Dispose();
-            }
-            if (reader != null)
-            {
-                reader.Close();
-                reader.Dispose();
+                if (stream != null)
+                {
+                    stream.Dispose();
+                }
             }
             return result;
-           
-            
         }
     }
 }

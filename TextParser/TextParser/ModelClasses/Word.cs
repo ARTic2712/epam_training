@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TextParser.Interfaces;
-using System.Xml.Serialization;
 
 namespace TextParser.ModelClasses
 {

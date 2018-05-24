@@ -91,9 +91,9 @@ namespace TextParser.ModelClasses
             }
            // return result;
         }
-        public static  List<ModelClasses.Word > Parse(List<TextLine> textLines)
+        public static  List<Word > Parse(List<TextLine> textLines)
         {
-            List<ModelClasses.Word> wordsInText = new List<ModelClasses.Word>();
+            List<Word> wordsInText = new List<Word>();
             for (int i = 0; i < textLines.Count; i++)
             {
                 foreach (var item in textLines.ElementAt(i).Items)
