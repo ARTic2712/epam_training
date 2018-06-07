@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace ATSLib.Enums
 {
-    public enum Mode
+    public enum Answer
     {
-        Off,
-        Free,
-        Busy,
-        Blocked,
-        NotExist,
-        Ringing
+        NotResponding,
+        Answered,
+        Canceled
     }
 }

@@ -10,6 +10,7 @@ namespace ATSLib.Classes
     {
         public int Number { get; set; }
         public string Name { get; }
+        public Port Port { get; set; }
         public event EventHandler<EventArgs> ActivateEvent;
         public event EventHandler<EventArgs> DeactivateEvent;
 
@@ -27,6 +28,7 @@ namespace ATSLib.Classes
             {
                 IsActive = true;
                 ActivateEvent(this, null);
+                if (Port != null) Port.IncomingCallEvent += IncomingCall;
             }
         }
         public void TurnOff()
@@ -35,19 +37,26 @@ namespace ATSLib.Classes
             {
                 IsActive = false;
                 DeactivateEvent(this, null);
+                if (Port != null) Port.IncomingCallEvent -= IncomingCall;
+
             }
         }
         public void Call(int phoneNumber)
         {
             if(IsActive )
             {
-               switch( CallEvent(new CallEventArgs(phoneNumber)))
+               switch( CallEvent(new CallEventArgs(phoneNumber, Number )))
                 {
                     case Enums.Mode.Blocked: { Console.WriteLine("You are blocked!"); break; }
                     case Enums.Mode.Busy: { Console.WriteLine("Line is busy!"); break; }
+                    case Enums.Mode.NotExist: { Console.WriteLine("This number does not exist."); break; }
                 }
 
             }
+        }
+        public Enums.Answer IncomingCall(CallEventArgs call)
+        {
+            return Enums.Answer.Answered;
         }
     }
 }

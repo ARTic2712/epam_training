@@ -49,6 +49,7 @@
     <Compile Include="Classes\CallEventArgs.cs" />
     <Compile Include="Classes\Port.cs" />
     <Compile Include="Classes\Terminal.cs" />
+    <Compile Include="Enums\Answer.cs" />
     <Compile Include="Enums\Mode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,10 +8,14 @@ namespace ATSLib.Classes
 {
     public class CallEventArgs
     {
-        public int PhoneNumber { get; set; }
-        public CallEventArgs(int number)
+        public int OutPhoneNumber { get; set; }
+        public int InPhoneNumber { get; set; }
+
+        public CallEventArgs(int outNumber, int inNumber)
         {
-            PhoneNumber = number;
+            OutPhoneNumber = outNumber;
+            InPhoneNumber = inNumber;
+
         }
     }
 }
