@@ -12,18 +12,26 @@ namespace Demo
         {
             Terminal t = new Terminal("Xiaomi redmi note 4", 1111111);
             Terminal t2 = new Terminal("Xiaomi redmi 5", 2442425);
+            Terminal t3 = new Terminal("Xiaomi redmi 3", 233);
+
 
             ATS.GetStation().AddPort(new Port(t));
+            ATS.GetStation().AddPort(new Port(t2));
+            ATS.GetStation().AddPort(new Port(t3));
 
             t.TurnOn();
             t.Call(2442425);
             t.TurnOff();
             t.Call(242);
-            ATS.GetStation().AddPort(new Port(t2));
             t2.TurnOn();
             t.TurnOn();
             t.Call(2442425);
+            System.Threading.Thread.Sleep(1000);
+            t.Call(2442425);
+            t3.TurnOn();
+            t3.Call(2442425);
 
+            System.Threading.Thread.Sleep(1000000);
         }
     }
 }
