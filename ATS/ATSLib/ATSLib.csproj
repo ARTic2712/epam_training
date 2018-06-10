@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Classes\ATS.cs" />
     <Compile Include="Classes\CallEventArgs.cs" />
+    <Compile Include="Classes\CallInfo.cs" />
     <Compile Include="Classes\Port.cs" />
     <Compile Include="Classes\Terminal.cs" />
     <Compile Include="Enums\Answer.cs" />

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATSLib", "ATSLib\ATSLib.csproj", "{57A721FC-C91E-4125-A358-6A79F6294EA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingSystem", "BillingSystem\BillingSystem.csproj", "{8E21810D-2311-4233-9FA8-D90AF558DA86}"
+	ProjectSection(ProjectDependencies) = postProject
+		{57A721FC-C91E-4125-A358-6A79F6294EA7} = {57A721FC-C91E-4125-A358-6A79F6294EA7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{6FECB532-62F7-4292-92BF-90403EE3D21F}"
 	ProjectSection(ProjectDependencies) = postProject

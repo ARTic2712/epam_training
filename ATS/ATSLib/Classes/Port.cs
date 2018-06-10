@@ -15,7 +15,8 @@ namespace ATSLib.Classes
         public event EventHandler<EventArgs> AnswerEvent;
         public event EventHandler<EventArgs> NoAnswerEvent;
         public event EventHandler<EventArgs> RejectEvent;
-
+        public event EventHandler<EventArgs> EndCallEventOnPort;
+        
         public int PhoneNumber
         {
             get { return Terminal.Number; }
@@ -78,6 +79,8 @@ namespace ATSLib.Classes
             Terminal.ToNoAnswerCall -= NoAnswered;
             Mode = Enums.Mode.Busy;
             AnswerEvent(this, null);
+            Terminal.EndCallEvent += EndCallOnPort;
+
         }
         public void Rejected(object o, EventArgs e)
         {
@@ -104,7 +107,10 @@ namespace ATSLib.Classes
                 ATS.GetStation().TerminalAnswered -= OutCallAnswered;
                 ATS.GetStation().TerminalNoAnswered -= OutCallNoAnswered;
                 ATS.GetStation().TerminalRejected -= OutCallRejected;
+                ATS.GetStation().EndCallEvent += EndCallOnPort;
                 Console.WriteLine("Call are accepted");
+                Terminal.EndCallEvent += EndCallOnPort;
+
             }
         }
         public void OutCallNoAnswered(object o, CallEventArgs e)
@@ -118,7 +124,7 @@ namespace ATSLib.Classes
                 Console.WriteLine("Subscriber does not answer");
             }
         }
-        public void OutCallRejected(object o, CallEventArgs e)
+        public  void OutCallRejected(object o, CallEventArgs e)
         {
             if (e.InPhoneNumber == PhoneNumber)
             {
@@ -129,6 +135,17 @@ namespace ATSLib.Classes
                 Console.WriteLine("Call rejected");
 
             }
+        }
+        private void EndCallOnPort(object o,EventArgs e)
+        {
+            Mode = Enums.Mode.Free;
+            Terminal.EndCallEvent -= EndCallOnPort;
+            EndCallEventOnPort(this, null);
+        }
+        private void EndCallOnPort(object o, CallInfo e)
+        {
+            Mode = Enums.Mode.Free;
+            Terminal.EndCallEvent -= EndCallOnPort;
         }
     }
 }

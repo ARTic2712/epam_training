@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATSLib.Enums
 {
-    public enum Answer
+    public enum AnswerType
     {
         NotResponding,
         Answered,

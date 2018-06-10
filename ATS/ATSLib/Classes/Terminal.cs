@@ -16,6 +16,8 @@ namespace ATSLib.Classes
         public event EventHandler<EventArgs> ToAnswerCall;
         public event EventHandler<EventArgs> ToNoAnswerCall;
         public event EventHandler<EventArgs> ToRejectCall;
+        public event EventHandler<EventArgs> EndCallEvent;
+
         private Boolean TimeRingEnd = false; 
 
         private System.Timers.Timer timer = new System.Timers.Timer(10000);
@@ -89,5 +91,13 @@ namespace ATSLib.Classes
             ToNoAnswerCall(this, null);
             timer.Stop();
         }
+        public void EndCall()
+        {
+            if (ATS.GetStation().Ports.FirstOrDefault(x=>x.PhoneNumber==Number).Mode== Enums.Mode.Busy )
+            {
+                 EndCallEvent(this, null);
+            }
+        }
+
     }
 }
