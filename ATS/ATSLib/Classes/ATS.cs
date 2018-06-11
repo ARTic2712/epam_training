@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATSLib.Classes
 {
@@ -16,12 +14,12 @@ namespace ATSLib.Classes
         public event EventHandler<CallInfo> EndCallEvent;
 
         private IDictionary<int, int> ActiveConnections { get; set; }
-        private IDictionary<KeyValuePair<int,int>, CallInfo> Calls { get; set; }
+        private IDictionary<KeyValuePair<int,int>, List< CallInfo>> Calls { get; set; }
         private ATS()
         {
             Ports = new List<Port>();
             ActiveConnections = new Dictionary<int, int>();
-            Calls = new Dictionary<KeyValuePair<int, int>, CallInfo>();
+            Calls = new Dictionary<KeyValuePair<int, int>, List<CallInfo>>();
         }
         public static ATS GetStation()
         {
@@ -70,8 +68,17 @@ namespace ATSLib.Classes
             port.EndCallEventOnPort += EndCall;
             var connection = ActiveConnections.FirstOrDefault(x => x.Value == port.PhoneNumber);
             Ports.FirstOrDefault(x => x.PhoneNumber == connection.Key).EndCallEventOnPort += EndCall;
-            TerminalAnswered (this, new CallEventArgs(connection.Value, connection.Key));
-            Calls.Add(connection, new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.Answered));
+            TerminalAnswered?.Invoke(this, new CallEventArgs(connection.Value, connection.Key));
+            if (Calls.ContainsKey(connection))
+            {
+                Calls[connection].Add(new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.Answered));
+            }
+            else
+            {
+                Calls.Add(connection, new List<CallInfo>());
+                Calls[connection].Add(new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.Answered));
+
+            }
         }
         private void RejectedCall(object o, EventArgs e)
         {
@@ -81,8 +88,17 @@ namespace ATSLib.Classes
             port.NoAnswerEvent -= NoAnsweredCall;
             var connection = ActiveConnections.FirstOrDefault(x => x.Value == port.PhoneNumber);
             ActiveConnections.Remove(connection.Key );
-            TerminalRejected (this, new CallEventArgs(connection.Value, connection.Key));
-            Calls.Add(connection, new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.Canceled ));
+            TerminalRejected?.Invoke(this, new CallEventArgs(connection.Value, connection.Key));
+            if (Calls.ContainsKey(connection))
+            {
+                Calls[connection].Add(new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.Canceled));
+            }
+            else
+            {
+                Calls.Add(connection, new List<CallInfo>());
+                Calls[connection].Add(new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.Canceled));
+
+            }
 
 
         }
@@ -94,9 +110,18 @@ namespace ATSLib.Classes
             port.NoAnswerEvent -= NoAnsweredCall;
             var connection = ActiveConnections.FirstOrDefault(x => x.Value == port.PhoneNumber);
             ActiveConnections.Remove(connection.Key);
-            TerminalNoAnswered(this, new CallEventArgs(connection.Value, connection.Key));
-            Calls.Add(connection, new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.NotResponding ));
-            
+            TerminalNoAnswered?.Invoke(this, new CallEventArgs(connection.Value, connection.Key));
+            if (Calls.ContainsKey(connection))
+            {
+                Calls[connection].Add(new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.NotResponding));
+            }
+            else
+            {
+                Calls.Add(connection, new List<CallInfo>());
+                Calls[connection].Add(new CallInfo(connection.Key, connection.Value, DateTime.Now, Enums.AnswerType.NotResponding));
+
+            }
+
         }
         private void EndCall(object o,EventArgs e)
         {
@@ -113,10 +138,13 @@ namespace ATSLib.Classes
             {
                 secondPort = Ports.First(x => x.PhoneNumber == connection.Key);
             }
-            CallInfo call = Calls.FirstOrDefault(x => (x.Key.Key == port.PhoneNumber && x.Key.Value == secondPort.PhoneNumber) || (x.Key.Value == port.PhoneNumber && x.Key.Key == secondPort.PhoneNumber)).Value;
+            List<CallInfo> calls = Calls.FirstOrDefault(x => (x.Key.Key == port.PhoneNumber && x.Key.Value == secondPort.PhoneNumber) || (x.Key.Value == port.PhoneNumber && x.Key.Key == secondPort.PhoneNumber)).Value ;
+            CallInfo call = calls[calls.Count - 1];
             call.FinishCall(DateTime.Now);
-            EndCallEvent(this, call);
+            EndCallEvent?.Invoke(this, call);
             secondPort.EndCallEventOnPort -= EndCall;
+            ActiveConnections.Remove(connection.Key);
+
 
         }
     }

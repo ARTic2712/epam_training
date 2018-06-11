@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BillingSystem.Interfaces
 {
@@ -15,5 +11,6 @@ namespace BillingSystem.Interfaces
         double Balance { get; }
         void PayToDeposit(double sum);
         void EndCall(ATSLib.Classes.CallInfo  call);
+        void GetInfo(Func<ATSLib.Classes.CallInfo, bool> predicat);
     }
 }

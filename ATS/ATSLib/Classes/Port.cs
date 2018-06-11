@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATSLib.Classes
 {
@@ -27,6 +23,7 @@ namespace ATSLib.Classes
             Terminal = terminal;
             Terminal.Port = this;
             Terminal.ActivateEvent  += OnTerminalActivate;
+            terminal.BlockEvent += BlockPort;
         }
         public void OnTerminalActivate(object o, EventArgs  e)
         {
@@ -70,7 +67,7 @@ namespace ATSLib.Classes
             Terminal.ToNoAnswerCall += NoAnswered;
             
 
-            IncomingCallEvent(this,new CallEventArgs(Terminal.Number, InPhoneNumber));
+            IncomingCallEvent?.Invoke(this,new CallEventArgs(Terminal.Number, InPhoneNumber));
         }
         public void Answered(object o, EventArgs e)
         {
@@ -78,8 +75,10 @@ namespace ATSLib.Classes
             Terminal.ToRejectCall -= Rejected;
             Terminal.ToNoAnswerCall -= NoAnswered;
             Mode = Enums.Mode.Busy;
-            AnswerEvent(this, null);
+            AnswerEvent?.Invoke(this, null);
             Terminal.EndCallEvent += EndCallOnPort;
+            ATS.GetStation().EndCallEvent += EndCallOnPort;
+
 
         }
         public void Rejected(object o, EventArgs e)
@@ -88,7 +87,7 @@ namespace ATSLib.Classes
             Terminal.ToRejectCall -= Rejected;
             Terminal.ToNoAnswerCall -= NoAnswered;
             Mode = Enums.Mode.Free ;
-            RejectEvent (this, null);
+            RejectEvent?.Invoke(this, null);
 
         }
         public void NoAnswered(object o, EventArgs e)
@@ -97,7 +96,7 @@ namespace ATSLib.Classes
             Terminal.ToRejectCall -= Rejected;
             Terminal.ToNoAnswerCall -= NoAnswered;
             Mode = Enums.Mode.Free;
-            NoAnswerEvent(this, null);
+            NoAnswerEvent?.Invoke(this, null);
         }
         public void OutCallAnswered(object o, CallEventArgs  e)
         {
@@ -140,12 +139,22 @@ namespace ATSLib.Classes
         {
             Mode = Enums.Mode.Free;
             Terminal.EndCallEvent -= EndCallOnPort;
-            EndCallEventOnPort(this, null);
+            EndCallEventOnPort?.Invoke(this, null);
         }
         private void EndCallOnPort(object o, CallInfo e)
         {
             Mode = Enums.Mode.Free;
             Terminal.EndCallEvent -= EndCallOnPort;
+        }
+        private void BlockPort(object o, EventArgs e)
+        {
+            Mode = Enums.Mode.Blocked;
+            Terminal.UnBlockEventOnTerminal += UnBlockPort;
+        }
+        private void UnBlockPort(object o, EventArgs e)
+        {
+            Mode = Enums.Mode.Free;
+            Terminal.UnBlockEventOnTerminal -= UnBlockPort;
         }
     }
 }

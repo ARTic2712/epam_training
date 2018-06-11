@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATSLib.Classes
 {
@@ -10,8 +6,9 @@ namespace ATSLib.Classes
     {
         public  int CallNumber { get;}
         public int ReceivingNumber { get;}
-        private DateTime BeginCall { get;}
-        private DateTime EndCall { get; set; }
+        public DateTime BeginCall { get;}
+        public DateTime EndCall { get; set; }
+        public double CallPrice { get; set; }
         public Enums.AnswerType CallingAnswerType { get; set; }
         public CallInfo(int callNumber, int receivingNumber, DateTime beginCall, Enums.AnswerType callingAnswerType)
         {

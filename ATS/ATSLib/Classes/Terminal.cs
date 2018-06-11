@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATSLib.Classes
 {
@@ -17,6 +14,9 @@ namespace ATSLib.Classes
         public event EventHandler<EventArgs> ToNoAnswerCall;
         public event EventHandler<EventArgs> ToRejectCall;
         public event EventHandler<EventArgs> EndCallEvent;
+        public event EventHandler<EventArgs> BlockEvent;
+        public event EventHandler<EventArgs> UnBlockEventOnTerminal;
+
 
         private Boolean TimeRingEnd = false; 
 
@@ -45,7 +45,7 @@ namespace ATSLib.Classes
             if (IsActive)
             {
                 IsActive = false;
-                DeactivateEvent(this, null);
+                DeactivateEvent?.Invoke(this, null);
                 if (Port != null) Port.IncomingCallEvent -= IncomingCall;
 
             }
@@ -78,8 +78,8 @@ namespace ATSLib.Classes
             {
                 switch (Console.ReadKey().KeyChar)
                 {
-                    case '1': { if (!TimeRingEnd) ToAnswerCall(this, null); timer.Stop(); return; }
-                    case '2': { if (!TimeRingEnd) ToRejectCall(this, null);timer.Stop(); return; }
+                    case '1': { if (!TimeRingEnd) ToAnswerCall?.Invoke(this, null); timer.Stop(); return; }
+                    case '2': { if (!TimeRingEnd) ToRejectCall?.Invoke(this, null);timer.Stop(); return; }
                     default: { if (!TimeRingEnd) Console.WriteLine("You entered an invalid character. Please repeat."); break; }
                 }
             }
@@ -88,15 +88,23 @@ namespace ATSLib.Classes
         private void TimerEnd(object o,EventArgs e)
         {
             TimeRingEnd = true;
-            ToNoAnswerCall(this, null);
+            ToNoAnswerCall?.Invoke(this, null);
             timer.Stop();
         }
         public void EndCall()
         {
             if (ATS.GetStation().Ports.FirstOrDefault(x=>x.PhoneNumber==Number).Mode== Enums.Mode.Busy )
             {
-                 EndCallEvent(this, null);
+                 EndCallEvent?.Invoke(this, null);
             }
+        }
+        public void TerminalBlock(object o, EventArgs e)
+        {
+            BlockEvent?.Invoke(this, e);
+        }
+        public void TerminalUnBlock(object o, EventArgs e)
+        {
+            UnBlockEventOnTerminal?.Invoke(this, e);
         }
 
     }
