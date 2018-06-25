@@ -9,7 +9,7 @@ namespace SalesSystem.Interfaces
 {
     public interface IUnitOfWork:IDisposable 
     {
-        IRepository<Manager> Managers { get; }
+        IRepository<User> Users { get; }
         IRepository <Product > Products { get;}
         IRepository<Sale> Sales { get; }
         void Save();

@@ -12,7 +12,7 @@ namespace SalesSystem.Repositories
     public class EFUnitOfWork : IUnitOfWork
     {
         private EF.SaleContext db;
-        private ManagerRepository _managers;
+        private UserRepository _users;
         private ProductRepository  _products;
         private SaleRepository  _sales;
         private bool disposed = false;
@@ -20,12 +20,12 @@ namespace SalesSystem.Repositories
         {
             db = new EF.SaleContext(connectionString);
         }
-        public IRepository<Manager> Managers
+        public IRepository<User> Users
         {
             get
             {
-                if (_managers == null) _managers = new ManagerRepository(db);
-                return _managers;
+                if (_users == null) _users = new UserRepository(db);
+                return _users;
             }
         }
         public IRepository<Product> Products

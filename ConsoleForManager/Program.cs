@@ -13,19 +13,27 @@ namespace ConsoleForManager
         static void Main(string[] args)
         {
             while(true)
-            { 
+            {
                 Console.WriteLine("Enter your first name");
                 string firstName = Console.ReadLine();
                 Console.WriteLine("Enter your last name");
                 string secondName = Console.ReadLine();
                 Console.WriteLine("Enter product");
                 string product = Console.ReadLine();
-                var fileName = $"{secondName+ firstName}_{DateTime.Now:ddMMyyyy}";
+                Console.WriteLine("Enter price");
+                string price = Console.ReadLine();
+                Console.WriteLine("Enter description");
+                string description = Console.ReadLine();
+                Console.WriteLine("Enter client first name");
+                string clientFirstName = Console.ReadLine();
+                Console.WriteLine("Enter client last name");
+                string clientSecondName = Console.ReadLine();
+                var fileName = $"{secondName}_ {firstName}_{DateTime.Now:ddMMyyyy}";
                 try
                 {
-                    using (var fileStream = new StreamWriter(Properties.Settings.Default.FilePath+ $"{fileName}.csv", false, Encoding.Default))
+                    using (var fileStream = new StreamWriter(Properties.Settings.Default.FilePath+ $"{fileName}.csv", true, Encoding.Default ))
                     {
-                       fileStream.WriteLine($"{firstName},{secondName},{product}");
+                       fileStream.WriteLine($"{clientFirstName},{clientSecondName},{product},{price},{description},{DateTime.Now}");
                     }
                 }
                 catch (FormatException)

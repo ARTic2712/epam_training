@@ -10,7 +10,7 @@ namespace SalesSystem.EF
 {
    public class SaleContext:DbContext 
     {
-        public DbSet<Manager> Managers { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Product > Producs { get; set; }
         public DbSet<Sale > Sales { get; set; }
         public SaleContext(String connectionString)
