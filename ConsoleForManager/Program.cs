@@ -28,7 +28,7 @@ namespace ConsoleForManager
                 string clientFirstName = Console.ReadLine();
                 Console.WriteLine("Enter client last name");
                 string clientSecondName = Console.ReadLine();
-                var fileName = $"{secondName}_ {firstName}_{DateTime.Now:ddMMyyyy}";
+                var fileName = $"{firstName}_ {secondName}_{DateTime.Now:ddMMyyyy}";
                 try
                 {
                     using (var fileStream = new StreamWriter(Properties.Settings.Default.FilePath+ $"{fileName}.csv", true, Encoding.Default ))

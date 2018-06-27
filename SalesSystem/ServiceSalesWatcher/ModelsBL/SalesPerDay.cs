@@ -21,5 +21,15 @@ namespace ServiceSalesWatcher.ModelsBL
             ManagerFirstName = managerFirstName;
             ManagerSecondName = managerSecondName;
         }
+        public void ParseLine(string line)
+        {
+            var lineContent = line.Split(',');
+            ClientFirstName = lineContent[0].Trim();
+            ClientSecondName = lineContent[1].Trim();
+            Product = lineContent[2].Trim();
+            Price = Convert.ToDouble(lineContent[3]);
+            Description = lineContent[4].Trim();
+            DateSale = Convert.ToDateTime(lineContent[5]);
+        }
     }
 }
