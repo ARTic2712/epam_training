@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SalesSystem.Entities;
 using SalesSystem.EF;
 using System.Data.Entity;

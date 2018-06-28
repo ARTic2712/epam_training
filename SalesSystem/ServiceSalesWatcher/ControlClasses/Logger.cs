@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ServiceSalesWatcher.ModelsBL;
@@ -21,7 +20,6 @@ namespace ServiceSalesWatcher.ControlClasses
         public Logger()
         {
             watcher = new FileSystemWatcher(Properties.Settings.Default.FilePath);
-          //  watcher.Created += Watcher_Created;
             watcher.Changed += Watcher_Changed;
         }
 
@@ -38,16 +36,10 @@ namespace ServiceSalesWatcher.ControlClasses
             watcher.EnableRaisingEvents = false;
             enabled = false;
         }
-        // изменение файлов
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             ParseFile(e.FullPath);
         }
-        // создание файлов
-        //private void Watcher_Created(object sender, FileSystemEventArgs e)
-        //{
-        //    ParseFile(e.FullPath);
-        //}
         private void ParseFile(string filePath)
         {
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
@@ -91,13 +83,10 @@ namespace ServiceSalesWatcher.ControlClasses
                     .ForMember(x => x.Name, opt => opt.MapFrom(src => src.Product));
                 });
                 User manager = AutoMapper.Mapper.Map<SalesPerDay, User>(salesPerDay);
-                // Task [] tasks=new Task[4];
                 List<Task> tasks = new List<Task>();
                 tasks.Add(Task.Run(() => CheckUser(manager,  unitOfWork)));
-                // tasks[0]= Task.Run(() => CheckUser(manager));
 
                 Product product = AutoMapper.Mapper.Map<SalesPerDay, Product>(salesPerDay);
-                // tasks[1] = Task.Run(() => CheckProduct(product));
                 tasks.Add(Task.Run(() => CheckProduct(product, unitOfWork)));
                 AutoMapper.Mapper.Reset();
                 AutoMapper.Mapper.Initialize(cfg =>
@@ -119,8 +108,7 @@ namespace ServiceSalesWatcher.ControlClasses
                 Sale sale = AutoMapper.Mapper.Map<SalesPerDay, Sale>(salesPerDay);
 
                 Task.WaitAll(tasks.ToArray());
-
-                //tasks[2] = Task.Run(() => CheckUser(client));
+                
                 tasks.Add(Task.Run(() => CheckUser(client, unitOfWork)));
                 Task.WaitAll(tasks.ToArray());
                 unitOfWork.Save();
@@ -132,19 +120,14 @@ namespace ServiceSalesWatcher.ControlClasses
                 Task.WaitAll(tasks.ToArray());
                 unitOfWork.Save();
             }
-            //tasks[3] = Task.Run(() => CheckSale(sale));
         }
         private void CheckUser(User user, EFUnitOfWork unitOfWork)
-        {
-            Console.WriteLine("CheckUser" + DateTime.Now.ToString());
-            System.Threading.Thread.Sleep(2000);
-            
+        {            
                 var userInDb = unitOfWork.Users.GetAll().FirstOrDefault(x => x.FirstName.ToLower() == user.FirstName.ToLower() && x.SecondName.ToLower() == user.SecondName.ToLower());
                 if (userInDb == null)
                 {
                     user.BirthDay = new DateTime(1900, 1, 1);
                     unitOfWork.Users.Create(user);
-                    //unitOfWork.Save();
                 }
         }
         private void CheckProduct(Product  product, EFUnitOfWork unitOfWork)
@@ -153,7 +136,6 @@ namespace ServiceSalesWatcher.ControlClasses
                 if (productInDb == null)
                 {
                     unitOfWork.Products.Create(product);
-                  //  unitOfWork.Save();
                 }
         }
         private void CheckSale(Sale sale, EFUnitOfWork unitOfWork)
@@ -162,7 +144,6 @@ namespace ServiceSalesWatcher.ControlClasses
                 if (saleInDb == null)
                 {
                     unitOfWork.Sales.Create(sale);
-                   // unitOfWork.Save();
                 }
         }
     }
