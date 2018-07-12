@@ -1,48 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SalesSystem.Entities;
-using SalesSystem.EF;
-using System.Data.Entity;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using SalesSystem.Entities;
+//using SalesSystem.EF;
+//using System.Data.Entity;
 
-namespace SalesSystem.Repositories
-{
-    public class ProductRepository : IRepository<Product>
-    {
-        private SaleContext db;
-        public ProductRepository(SaleContext saleContext )
-        {
-            db = saleContext;
-        }
-        public void Create(Product item)
-        {
-            db.Producs.Add(item);
-        }
+//namespace SalesSystem.Repositories
+//{
+//    class ProductRepository : IRepository<Product>
+//    {
+//        private SaleContext db;
+//        private ProductRepository(SaleContext saleContext )
+//        {
+//            db = saleContext;
+//        }
+//        public void Create(Product item)
+//        {
+//            db.Producs.Add(item);
+//        }
 
-        public void Delete(int id)
-        {
-            Product product = db.Producs.Find(id);
-            if (product != null) db.Producs.Remove(product);
-        }
+//        public void Delete(int id)
+//        {
+//            Product product = db.Producs.Find(id);
+//            if (product != null) db.Producs.Remove(product);
+//        }
 
-        public IEnumerable<Product> Find(Func<Product, bool> predicate)
-        {
-            return db.Producs.Where(predicate).ToList();
-        }
+//        public IEnumerable<Product> Find(Func<Product, bool> predicate)
+//        {
+//            return db.Producs.Where(predicate).ToList();
+//        }
 
-        public Product Get(int id)
-        {
-            return db.Producs.Find(id);
-        }
+//        public Product Get(int id)
+//        {
+//            return db.Producs.Find(id);
+//        }
 
-        public IEnumerable<Product> GetAll()
-        {
-            return db.Producs;
-        }
+//        public IEnumerable<Product> GetAll()
+//        {
+//            return db.Producs;
+//        }
 
-        public void Update(Product item)
-        {
-            db.Entry(item).State = EntityState.Modified;
-        }
-    }
-}
+//        public void Update(Product item)
+//        {
+//            db.Entry(item).State = EntityState.Modified;
+//        }
+//    }
+//}

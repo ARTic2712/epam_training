@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ServiceSalesWatcher.ModelsBL;
 using SalesSystem.Entities;
 using SalesSystem.Repositories;
+using SalesSystem.Interfaces;
 
 
 namespace ServiceSalesWatcher.ControlClasses
@@ -71,7 +72,7 @@ namespace ServiceSalesWatcher.ControlClasses
         }
         private void WriteToDb(SalesPerDay salesPerDay )
         {
-            using (EFUnitOfWork unitOfWork = new EFUnitOfWork(Properties.Settings.Default.connectionString))
+            using (IUnitOfWork  unitOfWork = new EFUnitOfWork(Properties.Settings.Default.connectionString))
             {
                 AutoMapper.Mapper.Reset();
                 AutoMapper.Mapper.Initialize(cfg =>
@@ -121,7 +122,7 @@ namespace ServiceSalesWatcher.ControlClasses
                 unitOfWork.Save();
             }
         }
-        private void CheckUser(User user, EFUnitOfWork unitOfWork)
+        private void CheckUser(User user, IUnitOfWork unitOfWork)
         {            
                 var userInDb = unitOfWork.Users.GetAll().FirstOrDefault(x => x.FirstName.ToLower() == user.FirstName.ToLower() && x.SecondName.ToLower() == user.SecondName.ToLower());
                 if (userInDb == null)
@@ -130,7 +131,7 @@ namespace ServiceSalesWatcher.ControlClasses
                     unitOfWork.Users.Create(user);
                 }
         }
-        private void CheckProduct(Product  product, EFUnitOfWork unitOfWork)
+        private void CheckProduct(Product  product, IUnitOfWork unitOfWork)
         {
                 var productInDb = unitOfWork.Products.GetAll().FirstOrDefault(x => x.Name.ToLower() == product.Name.ToLower());
                 if (productInDb == null)
@@ -138,7 +139,7 @@ namespace ServiceSalesWatcher.ControlClasses
                     unitOfWork.Products.Create(product);
                 }
         }
-        private void CheckSale(Sale sale, EFUnitOfWork unitOfWork)
+        private void CheckSale(Sale sale, IUnitOfWork unitOfWork)
         {
                 var saleInDb = unitOfWork.Sales.GetAll().FirstOrDefault(x => x.DateSale == sale.DateSale && x.Product == sale.Product && x.Manager == sale.Manager);
                 if (saleInDb == null)

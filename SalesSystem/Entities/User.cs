@@ -2,7 +2,7 @@
 
 namespace SalesSystem.Entities
 {
-    public class User
+    public class User:Interfaces.IId
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

@@ -1,33 +1,64 @@
 ﻿using System;
 using SalesSystem.Interfaces;
 using SalesSystem.Entities;
-
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
+using System.Collections.Generic;
+using System.Web;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
+using System.Threading.Tasks;
 namespace SalesSystem.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        private EF.SaleContext db;
-        private UserRepository _users;
-        private ProductRepository  _products;
-        private SaleRepository  _sales;
+        public ApplicationDbContext db;
+        private RepositoryT<ApplicationUser> _users;
+        private RepositoryT<ApplicationRole> _roles;
+        private RepositoryT<ApplicationUserRoles > _userRoles;
+
+        private RepositoryT<Product > _products;
+        private RepositoryT<Sale> _sales;
         private bool disposed = false;
         public EFUnitOfWork(string connectionString )
         {
-            db = new EF.SaleContext(connectionString);
+            db =new ApplicationDbContext(connectionString);
         }
-        public IRepository<User> Users
+        public EFUnitOfWork()
+        {
+            db = new ApplicationDbContext();
+        }
+        public IRepository<ApplicationUser> Users
         {
             get
             {
-                if (_users == null) _users = new UserRepository(db);
+                if (_users == null) _users = new RepositoryT<ApplicationUser> (db);
                 return _users;
+            }
+        }
+        public IRepository<ApplicationRole> Roles
+        {
+            get
+            {
+                if (_roles == null) _roles = new RepositoryT<ApplicationRole>(db);
+                return _roles;
+            }
+        }
+        public IRepository<ApplicationUserRoles > UserRoles
+        {
+            get
+            {
+                if (_userRoles == null) _userRoles = new RepositoryT<ApplicationUserRoles >(db);
+                return _userRoles;
             }
         }
         public IRepository<Product> Products
         {
             get
             {
-                if (_products == null) _products = new ProductRepository(db);
+                if (_products == null) _products = new RepositoryT<Product>(db);
                 return _products;
             }
         }
@@ -35,10 +66,18 @@ namespace SalesSystem.Repositories
         {
             get
             {
-                if (_sales == null) _sales = new SaleRepository(db);
+                if (_sales == null) _sales = new  RepositoryT<Sale> (db);
                 return _sales;
             }
         }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return new SalesSystem.ApplicationUserManager(new UserStore<SalesSystem.Entities.ApplicationUser>(db)); 
+            }
+        }
+        
 
         public virtual void Dispose(bool disposing)
         {
