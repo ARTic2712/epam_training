@@ -6,6 +6,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SaleSystem.Web.MVC.Models;
+using SaleSystem.Web.MVC.Interfaces;
+using SaleSystem.Web.MVC.Repositories;
+
+
+
 using System.Web.Optimization;
 using System.Web.Routing;
 
@@ -15,8 +21,7 @@ namespace SaleSystem.Web.MVC
     {
         protected void Application_Start()
         {
-           // Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer());
-
+            
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

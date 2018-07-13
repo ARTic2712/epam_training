@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SaleSystem.Web.MVC.Repositories;
+using SaleSystem.Web.MVC.Interfaces;
+using SaleSystem.Web.MVC.Models;
+
+
 
 namespace SaleSystem.Web.MVC.Controllers
 {
@@ -10,7 +15,12 @@ namespace SaleSystem.Web.MVC.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            using (IUnitOfWork unitOfWork = new EFUnitOfWork())
+            {
+                var products = unitOfWork.Products.GetAll().ToList();
+                ViewBag.Products = products;
+                return View();
+            }
         }
 
         public ActionResult About()
