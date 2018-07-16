@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace SaleSystem.Web.MVC.Models 
 {
@@ -14,11 +15,11 @@ namespace SaleSystem.Web.MVC.Models
         [Display(Name = "Дата")]
         public DateTime DateSale { get; set; }
         [Required]
-        [Range(typeof(double), "0", "10000")]
+        [Range(typeof(double), "0", "100000")]
         [Display(Name = "Стоимость")]
         public double Price { get; set; }
         
-        public ApplicationUser  Manager  { get; set; }
+        public  ApplicationUser  Manager  { get; set; }
         public ApplicationUser Client { get; set; }
         public Product Product { get; set; }
 

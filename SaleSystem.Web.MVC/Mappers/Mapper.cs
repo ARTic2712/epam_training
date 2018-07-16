@@ -18,5 +18,15 @@ namespace SaleSystem.Web.MVC.Mappers
             sale.Product = unitOfWork.Products.Get(saleView.Id_Product);
             return sale;
         }
+        public static SaleViewModel SaleinSaleView(Sale sale, IUnitOfWork unitOfWork)
+        {
+            SaleViewModel  saleview = new SaleViewModel();
+            saleview.Description = sale.Description;
+            saleview.Price = sale.Price;
+            saleview.Email = sale.Client.Email;
+            saleview.Id = sale.Id;
+            saleview.Id_Product = sale.Product.Id;
+            return saleview;
+        }
     }
 }

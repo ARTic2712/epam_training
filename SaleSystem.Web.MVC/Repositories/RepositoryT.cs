@@ -5,14 +5,15 @@ using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SaleSystem.Web.MVC.Interfaces;
+using SaleSystem.Web.MVC.Models;
 
 namespace SaleSystem.Web.MVC.Repositories
 {
     public class RepositoryT<T>:IRepository<T> where T: class
     {
-        private DbContext _context;
+        private ApplicationDbContext _context;
         private DbSet<T> db;
-        public RepositoryT(DbContext  saleContext)
+        public RepositoryT(ApplicationDbContext saleContext)
         {
             _context = saleContext;
             db = saleContext.Set<T>();

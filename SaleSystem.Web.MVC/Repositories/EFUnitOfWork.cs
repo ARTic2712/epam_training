@@ -29,6 +29,8 @@ namespace SaleSystem.Web.MVC.Repositories
         public EFUnitOfWork()
         {
             db = new ApplicationDbContext();
+            db.Configuration.LazyLoadingEnabled = false;
+
         }
         public IRepository<ApplicationUser> Users
         {

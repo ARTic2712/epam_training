@@ -1,8 +1,8 @@
 ﻿@model  IEnumerable<SaleSystem.Web.MVC.Models.Product>
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home Page";
 }
 
 @if (Request.IsAuthenticated)
@@ -12,28 +12,60 @@
         <p><a href="/Products/Create/">Добавить продукт</a></p>
     }
     <table class="table">
-        @foreach(SaleSystem.Web.MVC.Models.Product product in ViewBag.Products)
+        @foreach (SaleSystem.Web.MVC.Models.Product product in ViewBag.Products)
         {
 
-        <tr>
-            <td>
-                @Html.DisplayFor(model => product.Name)
-            </td>
-            @if (this.User.IsInRole("manager"))
-            {
+            <tr>
                 <td>
-                    @Html.ActionLink("Совершить продажу", "Create", "Sales", new { idProduct = product.Id }, null) |
+                    @Html.DisplayFor(model => product.Name)
                 </td>
-            }
-            @if (this.User.IsInRole("admin"))
-            {
-                <td>
-                    @Html.ActionLink("Корректировка", "Edit", "Products", new { id = product.Id }, null) |
-                    @Html.ActionLink("Детали", "Details", "Products", new { id = product.Id }, null) |
-                    @Html.ActionLink("Удалить", "Delete", "Products", new { id = product.Id }, null)
-                </td>
-            }
-        </tr>
+                @if (this.User.IsInRole("manager"))
+                {
+                    <td>
+                        @Html.ActionLink("Совершить продажу", "Create", "Sales", new { idProduct = product.Id }, null) |
+                    </td>
+                }
+                @if (this.User.IsInRole("admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Корректировка", "Edit", "Products", new { id = product.Id }, null) |
+                        @Html.ActionLink("Детали", "Details", "Products", new { id = product.Id }, null) |
+                        @Html.ActionLink("Удалить", "Delete", "Products", new { id = product.Id }, null)
+                    </td>
+                }
+            </tr>
         }
-        </table>
- }
+    </table>
+}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+
+        function onDrawBarButtonClick() {
+            var actionUrl = '@Url.Action("GetManagersData", "Home")';
+            $.getJSON(actionUrl, drawBarChart);
+        }
+
+        function drawBarChart(response) {
+            var objs = [];
+            objs.push(['Менеджер', 'Сумма продаж']);
+
+            for (var i = 0; i < response.length; i++) {
+                var obj = [response[i].Name, response[i].SumPrice];
+                objs.push(obj);
+            }
+            var data = google.visualization.arrayToDataTable(objs);
+
+            var options = {
+                chart: {
+                    title: 'Продажи менеджеров'
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('chartArea'));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+</script>
+<button type="button" class="btn btn-primary" onclick="onDrawBarButtonClick()">График продаж</button>
+<div id="chartArea" style="width: 800px; height: 500px;"></div>
