@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SaleSystem.Web.MVC.Interfaces;
 using SaleSystem.Web.MVC.Models;
@@ -15,7 +14,6 @@ namespace SaleSystem.Web.MVC.Controllers
     public class SalesController : Controller
     {
         private IUnitOfWork unitOfWork = new EFUnitOfWork();
-        // private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Sales
         public ActionResult Index()
@@ -97,54 +95,7 @@ namespace SaleSystem.Web.MVC.Controllers
             return View(sale);
         }
 
-        // GET: Sales/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    using (IUnitOfWork unitOfWork = new EFUnitOfWork())
-        //    {
-        //        if (id == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //        Sale saleDB = unitOfWork.Sales.Get((int)id);
-
-        //        SaleViewModel sale = Mappers.Mapper.SaleinSaleView(saleDB, unitOfWork);
-        //        if (sale == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //        return View(sale);
-        //    }
-        //}
-
-        // POST: Sales/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Description,Price,email,Id_Product")] SaleViewModel sale)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        using (IUnitOfWork unitOfWork = new EFUnitOfWork())
-        //        {
-        //            var user = unitOfWork.Users.Find(x => x.Email == sale.Email);
-        //            if (user.Count() > 0)
-        //            {
-        //                //Sale saleInDb = sale.Id > 0 ? unitOfWork.Sales.Get(sale.Id) : new Sale();
-        //                //saleInDb = Mappers.Mapper.SaleViewInSale(saleInDb, sale, unitOfWork);
-        //                //saleInDb.ClientId   = user.ElementAt(0).Id;
-        //                //var manager = unitOfWork.Users.Find(x => x.Email == HttpContext.User.Identity.Name);
-        //                //saleInDb.ManagerId  = manager.ElementAt(0).Id ;
-        //                //unitOfWork.Sales.Update(saleInDb);
-        //                //unitOfWork.Save();
-        //                //return RedirectToAction("Index");
-        //            }
-        //            return View(sale);
-        //        }
-        //    }
-        //    return View(sale);
-        //}
+       
 
         // GET: Sales/Delete/5
         [Authorize(Roles = "admin")]
@@ -190,7 +141,7 @@ namespace SaleSystem.Web.MVC.Controllers
                 ICollection<Sale> allsales;
                 if (dateSearch == null)
                 {
-                    allsales = ((unitOfWork as EFUnitOfWork).db.Sales.Include("Product").Where(x => x.Product.Id == idProd)).ToList();  //.Sales.Find( x => x.Product.Name.Contains(product));
+                    allsales = ((unitOfWork as EFUnitOfWork).db.Sales.Include("Product").Where(x => x.Product.Id == idProd)).ToList();  
                 }
                 else
                 {
@@ -206,7 +157,7 @@ namespace SaleSystem.Web.MVC.Controllers
                 ICollection<Sale> allsales;
                 if (dateSearch == null)
                 {
-                    allsales = ((unitOfWork as EFUnitOfWork).db.Sales.Include("Manager").Where(x => x.Manager.Id == idManager)).ToList();  //.Sales.Find( x => x.Product.Name.Contains(product));
+                    allsales = ((unitOfWork as EFUnitOfWork).db.Sales.Include("Manager").Where(x => x.Manager.Id == idManager)).ToList(); 
                 }
                 else
                 {

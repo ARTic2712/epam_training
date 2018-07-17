@@ -6,9 +6,6 @@ using System.Web;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
-using System.Web;
-using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 namespace SaleSystem.Web.MVC.Repositories
 {

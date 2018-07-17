@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using SaleSystem.Web.MVC.Repositories;
 using SaleSystem.Web.MVC.Interfaces;
 using SaleSystem.Web.MVC.Models;
-using System.Collections;
 
 namespace SaleSystem.Web.MVC.Controllers
 {

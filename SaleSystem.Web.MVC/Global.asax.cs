@@ -1,17 +1,4 @@
-﻿using SaleSystem.Web.MVC.Models;
-using SaleSystem.Web.MVC.SupportClasses;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using SaleSystem.Web.MVC.Models;
-using SaleSystem.Web.MVC.Interfaces;
-using SaleSystem.Web.MVC.Repositories;
-
-
-
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 

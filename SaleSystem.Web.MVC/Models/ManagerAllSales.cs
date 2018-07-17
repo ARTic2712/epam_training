@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace SaleSystem.Web.MVC.Models
+﻿namespace SaleSystem.Web.MVC.Models
 {
     public class ManagerAllSales
     {
