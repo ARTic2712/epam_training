@@ -56,6 +56,8 @@ namespace SaleSystem.Web.MVC.Controllers
         }
 
         // GET: Sales/Create
+        [Authorize(Roles = "admin, manager")]
+
         public ActionResult Create(int? idProduct)
         {
             if (idProduct != null)
@@ -72,6 +74,8 @@ namespace SaleSystem.Web.MVC.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
+
         public ActionResult Create([Bind(Include = "Id,Description,Price,email,Id_Product")] SaleViewModel sale)
         {
             if (ModelState.IsValid)
@@ -143,6 +147,8 @@ namespace SaleSystem.Web.MVC.Controllers
         //}
 
         // GET: Sales/Delete/5
+        [Authorize(Roles = "admin")]
+
         public ActionResult Delete(int? id)
         {
                 if (id == null)
@@ -160,6 +166,8 @@ namespace SaleSystem.Web.MVC.Controllers
         // POST: Sales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
+
         public ActionResult DeleteConfirmed(int id)
         {
                 unitOfWork.Sales.Delete(id);

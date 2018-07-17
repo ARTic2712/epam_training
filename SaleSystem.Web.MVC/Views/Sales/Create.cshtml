@@ -4,7 +4,7 @@
     ViewBag.Title = "Новая продажа";
 }
 
-<h2>Create</h2>
+<h2>Новая продажа</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Sale</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

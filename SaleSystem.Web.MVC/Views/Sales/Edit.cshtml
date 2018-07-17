@@ -4,7 +4,7 @@
     ViewBag.Title = "Корректировка";
 }
 
-<h2>Edit</h2>
+<h2>Корректировка</h2>
 
 
 @using (Html.BeginForm())
@@ -14,7 +14,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Sale</h4>
+        <h4>Продажа</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
