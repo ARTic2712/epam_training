@@ -259,8 +259,3 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/SaleSystem.Web.MVC/Content/Site.css
-/SaleSystem.Web.MVC/Content/bootstrap.min.css
-/SaleSystem.Web.MVC/Content/bootstrap.css
-/SaleSystem.Web.MVC/Scripts
-/SaleSystem.Web.MVC/Content
